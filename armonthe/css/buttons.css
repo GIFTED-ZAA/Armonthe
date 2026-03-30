@@ -1,0 +1,84 @@
+/* ============================================================
+   BUTTONS
+   Two variants: --warm (filled) and --ghost (underline only)
+   Both use a sliding pseudo-element for the hover fill.
+   ============================================================ */
+
+/* Base — shared properties */
+.btn {
+  display: inline-block;
+  text-decoration: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  border: none;
+}
+
+/* ── FILLED BUTTON ───────────────────────────────────────── */
+.btn--warm {
+  padding: 15px 44px;
+  background: var(--black);
+  color: var(--white);
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s;
+}
+
+/* Gradient slides up from below on hover */
+.btn--warm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(142,206,197,0.9), var(--a));
+  transform: translateY(101%);
+  transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn--warm:hover::before { transform: translateY(0); }
+
+/* Text sits above the pseudo-element */
+.btn--warm span { position: relative; z-index: 1; }
+
+/* ── GHOST / UNDERLINE BUTTON ────────────────────────────── */
+.btn--ghost {
+  padding: 15px 0;
+  color: var(--soft);
+  border-bottom: 1px solid var(--border2);
+  transition: color 0.3s, border-color 0.3s;
+}
+
+.btn--ghost:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+
+/* ============================================================
+   SCROLL REVEAL
+   Elements with .reveal start invisible/shifted down.
+   When they enter the viewport, JS adds .visible to animate them in.
+   Delay classes (.d1–.d4) stagger siblings in a group.
+   ============================================================ */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition:
+    opacity   0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger delays — add to siblings after the first */
+.d1 { transition-delay: 0.09s; }
+.d2 { transition-delay: 0.18s; }
+.d3 { transition-delay: 0.27s; }
+.d4 { transition-delay: 0.36s; }

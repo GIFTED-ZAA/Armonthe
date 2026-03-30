@@ -1,0 +1,48 @@
+/* ============================================================
+   RESET & BASE
+   Strips browser defaults and sets up the document foundation.
+   ============================================================ */
+
+/* Box-sizing: border model for every element */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased; /* Crisper text on Mac */
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  background: var(--white);
+  color: var(--ink);
+  overflow-x: hidden; /* Prevent horizontal scrollbar from animations */
+  cursor: none;       /* Hide default cursor — we use a custom one */
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* Links inherit text color by default */
+a {
+  color: inherit;
+}
+
+/* ── LAYOUT WRAPPER ──────────────────────────────────────────
+   Max-width container with responsive horizontal padding.
+   clamp(min, preferred, max) = fluid between 24px and 100px
+   ─────────────────────────────────────────────────────────── */
+.wrap {
+  width: 100%;
+  max-width: 1440px;
+  margin-inline: auto;
+  padding-inline: clamp(24px, 6vw, 100px);
+}

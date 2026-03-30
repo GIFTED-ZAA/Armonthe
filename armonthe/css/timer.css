@@ -1,0 +1,45 @@
+/* ============================================================
+   SESSION TIMER — "Time Spent With Us"
+   Fixed bottom-left. Frosted pill so it reads on ANY background.
+   ============================================================ */
+
+#session-timer {
+  position: fixed;
+  bottom: 28px;
+  left: 32px;
+  z-index: 400;
+  opacity: 0;
+  transition: opacity 1.4s;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  /* Frosted pill — legible on both espresso and white sections */
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(26, 20, 16, 0.09);
+  padding: 10px 16px 11px;
+}
+
+#session-timer.visible {
+  opacity: 1;
+}
+
+#timer-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(26, 20, 16, 0.52);
+}
+
+#timer-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 21px;
+  font-weight: 300;
+  color: #1a1410;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}

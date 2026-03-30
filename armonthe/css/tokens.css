@@ -1,0 +1,52 @@
+/* ============================================================
+   TOKENS — Design System Variables
+   Palette: Pure White · Midnight Black · Sage Teal (accent only)
+   ============================================================ */
+
+:root {
+
+  /* ── CORE TWO-COLOUR PALETTE ─────────────────────────────── */
+  --white:  #ffffff;
+  --off:    #f4f4f4;        /* Barely-there alternate — sections breathe */
+  --black:  #1a1410;        /* Midnight black                            */
+
+  /* ── SINGLE ACCENT ───────────────────────────────────────── */
+  --a:      #8ecec5;        /* Sage teal — the only colour touch         */
+
+  /* Remap legacy names so nothing breaks elsewhere */
+  --cream:  var(--white);
+  --parch:  var(--off);
+  --sand:   var(--off);
+  --sage:   var(--off);
+  --blush:  var(--off);
+  --plum:   var(--off);
+  --sage-dk: var(--black);
+  --plum-dk: var(--black);
+  --warm:    var(--black);
+
+  /* ── TEXT HIERARCHY ──────────────────────────────────────── */
+  --ink:   #1a1410;
+  --soft:  rgba(26, 20, 16, 0.62);
+  --mute:  rgba(26, 20, 16, 0.42);
+
+  /* ── BORDERS ─────────────────────────────────────────────── */
+  --border:  rgba(26, 20, 16, 0.08);
+  --border2: rgba(26, 20, 16, 0.15);
+
+  /* ── LEGACY ACCENT ALIASES ───────────────────────────────── */
+  --b:    var(--a);
+  --c:    var(--a);
+  --terr: var(--a);
+  --blue:  rgba(142, 206, 197, 0.10);
+  --blue2: rgba(142, 206, 197, 0.20);
+  --blue3: var(--a);
+
+  /* ── FIBONACCI SPACING SCALE ─────────────────────────────── */
+  --f1:   8px;
+  --f2:  13px;
+  --f3:  21px;
+  --f4:  34px;
+  --f5:  55px;
+  --f6:  89px;
+  --f7: 144px;
+}

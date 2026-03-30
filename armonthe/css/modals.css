@@ -1,0 +1,354 @@
+/* ============================================================
+   MODALS — Commission & Consultation Forms
+   Bespoke modal overlays matching Armonthe's premium aesthetic.
+   Two variants: commission (light cream) and meeting (dark warm).
+   ============================================================ */
+
+/* ── OVERLAY ─────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  background: rgba(30, 22, 16, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── MODAL CARD ──────────────────────────────────────────── */
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding: 56px 52px 52px;
+  transform: translateY(32px) scale(0.97);
+  transition: transform 0.52s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-overlay.open .modal-card {
+  transform: translateY(0) scale(1);
+}
+
+.modal-card::-webkit-scrollbar { display: none; }
+
+/* Commission form — warm cream */
+.modal-card--commission {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* Meeting form — deep dark */
+.modal-card--meeting {
+  background: var(--black);
+  color: rgba(245, 241, 235, 0.92);
+}
+
+/* ── CLOSE BUTTON ────────────────────────────────────────── */
+.modal-close {
+  position: absolute;
+  top: 22px;
+  right: 26px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--mute);
+  transition: color 0.25s;
+  padding: 0;
+}
+
+.modal-card--meeting .modal-close { color: rgba(255, 255, 255, 0.32); }
+.modal-close:hover { color: var(--ink); }
+.modal-card--meeting .modal-close:hover { color: rgba(255, 255, 255, 0.90); }
+
+/* ── MODAL HEADER ────────────────────────────────────────── */
+.modal-eyebrow {
+  font-size: 8.5px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.modal-eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.modal-card--meeting .modal-eyebrow { color: rgba(255, 255, 255, 0.32); }
+
+.modal-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 4vw, 38px);
+  font-weight: 300;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
+.modal-heading em {
+  font-style: italic;
+  color: var(--a);
+}
+
+.modal-card--meeting .modal-heading em {
+  color: var(--a);
+}
+
+.modal-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--soft);
+  margin-bottom: 40px;
+}
+
+.modal-card--meeting .modal-sub { color: rgba(255, 255, 255, 0.44); }
+
+/* ── FORM FIELDS ─────────────────────────────────────────── */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.modal-card--meeting .form-label { color: rgba(255, 255, 255, 0.32); }
+
+.form-input,
+.form-textarea,
+.form-select {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border2);
+  border-radius: 0;
+  padding: 10px 0;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.3s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.modal-card--meeting .form-input,
+.modal-card--meeting .form-textarea,
+.modal-card--meeting .form-select {
+  color: rgba(255, 255, 255, 0.88);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.form-input:focus,
+.form-textarea:focus,
+.form-select:focus {
+  border-bottom-color: var(--ink);
+}
+
+.modal-card--meeting .form-input:focus,
+.modal-card--meeting .form-textarea:focus,
+.modal-card--meeting .form-select:focus {
+  border-bottom-color: var(--a);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--mute);
+  opacity: 0.6;
+}
+
+.modal-card--meeting .form-input::placeholder,
+.modal-card--meeting .form-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.20);
+  opacity: 1;
+}
+
+.form-textarea {
+  resize: none;
+  height: 86px;
+  line-height: 1.65;
+}
+
+.form-select option {
+  background: var(--white);
+  color: var(--ink);
+}
+
+/* ── LANGUAGE NOTE ───────────────────────────────────────── */
+.modal-lang-note {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  color: var(--mute);
+  padding-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-card--meeting .modal-lang-note {
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.modal-lang-note::before {
+  content: '◆';
+  font-size: 5px;
+  flex-shrink: 0;
+}
+
+/* ── PLAN BADGE (auto-fills in meeting form) ─────────────── */
+.modal-plan-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--a);
+  border: 1px solid rgba(142, 206, 197, 0.3);
+  padding: 5px 14px;
+  margin-bottom: 36px;
+  width: fit-content;
+}
+
+/* ── SUBMIT BUTTON ───────────────────────────────────────── */
+.modal-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+  padding: 16px 42px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.4s;
+}
+
+.modal-card--commission .modal-submit {
+  background: var(--black);
+  color: var(--white);
+}
+
+.modal-card--meeting .modal-submit {
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.modal-submit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--a), var(--a));
+  transform: translateY(101%);
+  transition: transform 0.46s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-submit:hover::before { transform: translateY(0); }
+.modal-submit:hover { color: var(--white); }
+.modal-submit span { position: relative; z-index: 1; }
+
+.modal-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.modal-submit:disabled::before { display: none; }
+
+/* ── SUCCESS STATE ───────────────────────────────────────── */
+.modal-success {
+  display: none;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 20px 0;
+}
+
+.modal-success.visible { display: flex; }
+.modal-form.hidden { display: none; }
+
+.modal-success__icon {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  color: var(--a);
+}
+
+.modal-success__h {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 300;
+  line-height: 1.2;
+}
+
+.modal-success__p {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--soft);
+}
+
+.modal-card--meeting .modal-success__p { color: rgba(245, 241, 235, 0.5); }
+
+/* ── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .modal-card {
+    padding: 44px 28px 40px;
+    max-height: 95vh;
+  }
+}

@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARMONTHE — Architects of Digital Excellence</title>
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Outfit:wght@200;300;400;500&display=swap"
+    rel="stylesheet"
+  />
+
+  <!--
+    ══ STYLESHEETS ═══════════════════════════════════════════════
+    Load order matters — tokens must come first so all other
+    files can reference the CSS variables it defines.
+    ═════════════════════════════════════════════════════════════
+  -->
+  <link rel="stylesheet" href="css/tokens.css" />      <!-- Design system variables -->
+  <link rel="stylesheet" href="css/reset.css" />       <!-- Base reset + body -->
+  <link rel="stylesheet" href="css/animations.css" />  <!-- @keyframes -->
+  <link rel="stylesheet" href="css/cursor.css" />      <!-- Custom crosshair -->
+  <link rel="stylesheet" href="css/timer.css" />       <!-- Session timer -->
+  <link rel="stylesheet" href="css/nav.css" />         <!-- Fixed nav bar -->
+  <link rel="stylesheet" href="css/hero.css" />        <!-- Hero section -->
+  <link rel="stylesheet" href="css/buttons.css" />     <!-- Buttons + scroll reveal -->
+  <link rel="stylesheet" href="css/sections.css" />    <!-- Everything else -->
+  <link rel="stylesheet" href="css/modals.css" />      <!-- Commission & consultation modals -->
+</head>
+<body>
+
+  <!-- Session timer (bottom-left corner) -->
+  <div id="session-timer">
+    <div id="timer-label">Time Spent With Us</div>
+    <div id="timer-val">0:00</div>
+  </div>
+
+  <!-- Custom cursor element -->
+  <div id="cur"></div>
+
+
+  <!-- ══ NAV ══════════════════════════════════════════════════ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">Armonthe</a>
+      <ul class="nav__links">
+        <li><a href="#about">Atelier</a></li>
+        <li><a href="#cap">Disciplines</a></li>
+        <li><a href="#services">Investment</a></li>
+        <li><a href="#why">Distinction</a></li>
+        <li><a href="#contact-us">Engage</a></li>
+      </ul>
+      <a href="mailto:hello@armonthe.com" class="nav__cta">Commission a Project</a>
+    </div>
+  </nav>
+
+
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+
+    <!-- Canvas rings animation (see js/rings.js) -->
+    <canvas id="rings-cv"></canvas>
+
+    <!-- Orbiting emoji icons (see js/orbit.js) -->
+    <div class="orbit-wrap" id="orbit-wrap">
+      <div class="orb" id="orb0">🌐</div>
+      <div class="orb" id="orb1">✦</div>
+      <div class="orb" id="orb2">⬡</div>
+      <div class="orb" id="orb3">◎</div>
+      <div class="orb" id="orb4">⌘</div>
+    </div>
+
+    <!-- Decorative geometric corner brackets -->
+    <div class="g-tl"></div>
+    <div class="g-br"></div>
+
+    <!-- Floating color dots -->
+    <div class="g-dot gd1"></div>
+    <div class="g-dot gd2"></div>
+    <div class="g-dot gd3"></div>
+    <div class="g-dot gd4"></div>
+    <div class="g-dot gd5"></div>
+    <div class="g-dot gd6"></div>
+
+    <!-- Hero text content -->
+    <div class="wrap hero__content">
+
+      <!-- Small label -->
+      <p class="hero__pre">Architects of Digital Excellence</p>
+
+      <!-- Rotating text row ("One Vision", "One Standard", etc.) -->
+      <!-- See js/cardSwap.js for the animation logic -->
+      <div class="swap-row">
+        <div class="swap-box" id="swap-box">
+          <span class="sw on">One Vision</span>
+          <span class="sw in">One Standard</span>
+          <span class="sw in">One Mission</span>
+          <span class="sw in">One System</span>
+        </div>
+        <span class="swap-sep">—</span>
+        <span class="swap-fixed">Absolute Execution</span>
+      </div>
+
+      <!-- Main heading — skews on mouse move (see js/orbit.js > initTextPressure) -->
+      <h1 class="hero__heading" id="pressure-h">
+        Where <em>vision</em><br>
+        commands the<br>
+        <span class="ul">digital</span> realm.
+      </h1>
+
+      <!-- Description + CTA buttons -->
+      <div class="hero__foot">
+        <p class="hero__desc">
+          Armonthe engineers bespoke digital infrastructures for discerning brands —
+          uniting refined aesthetics, precision engineering, and sovereign intelligence
+          into one seamless system.
+        </p>
+        <div class="hero__actions">
+          <a href="#services" class="btn btn--warm"><span>Explore Services</span></a>
+          <a href="#cap" class="btn btn--ghost">Our Disciplines</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ══ TICKER ════════════════════════════════════════════════ -->
+  <!-- CSS animation — no JS needed. Two identical halves side by side,
+       animating to -50% creates an infinite seamless loop. -->
+  <div class="ticker">
+    <div class="ticker__track">
+      <span>Bespoke Web Engineering <span class="dot">◆</span></span>
+      <span>Brand Architecture <span class="dot">◆</span></span>
+      <span>Sovereign AI Systems <span class="dot">◆</span></span>
+      <span>Mobile Applications <span class="dot">◆</span></span>
+      <span>Digital Presence <span class="dot">◆</span></span>
+      <span>Social Dominance <span class="dot">◆</span></span>
+      <span>Growth Infrastructure <span class="dot">◆</span></span>
+      <span>Conversion Alchemy <span class="dot">◆</span></span>
+      <!-- Duplicate — needed for seamless loop -->
+      <span>Bespoke Web Engineering <span class="dot">◆</span></span>
+      <span>Brand Architecture <span class="dot">◆</span></span>
+      <span>Sovereign AI Systems <span class="dot">◆</span></span>
+      <span>Mobile Applications <span class="dot">◆</span></span>
+      <span>Digital Presence <span class="dot">◆</span></span>
+      <span>Social Dominance <span class="dot">◆</span></span>
+      <span>Growth Infrastructure <span class="dot">◆</span></span>
+      <span>Conversion Alchemy <span class="dot">◆</span></span>
+    </div>
+  </div>
+
+
+  <!-- ══ ABOUT ══════════════════════════════════════════════════ -->
+  <section id="about" class="sec s-white" style="position:relative;overflow:hidden;">
+    <canvas id="about-cv" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.55;z-index:0;"></canvas>
+    <div class="wrap">
+      <p class="lbl reveal">The Atelier</p>
+
+      <!-- 5:8 fibonacci grid — heading left, body right -->
+      <div class="about-grid">
+        <div class="reveal">
+          <h2 class="about-h">
+            Engineered for<br>
+            those who<br>
+            <em>refuse ordinary.</em>
+          </h2>
+        </div>
+        <div class="reveal d2">
+          <p class="about-lead">
+            Armonthe is not an agency. We are a strategic atelier — a singular
+            convergence of brand philosophy, engineering mastery, and artificial intelligence.
+          </p>
+          <p class="about-body">
+            Conventional agencies fragment your brand across siloed deliverables. We architect
+            an integrated sovereign system — where your visual identity, digital infrastructure,
+            and AI intelligence operate as a unified force. Every touchpoint deliberate.
+            Every decision strategic. Every output extraordinary.
+          </p>
+          <div class="about-quote reveal d3">
+            <p>
+              We accept a curated selection of clients who share our conviction that
+              the standard should never be the ceiling.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats — numbers animate up on scroll (see js/nav.js > initCountUp) -->
+      <div class="stats reveal d1" id="stats-block">
+        <div class="stat">
+          <div class="stat__n" data-target="3" data-suf="+">3+</div>
+          <div class="stat__l">Brands Elevated</div>
+        </div>
+        <div class="stat">
+          <div class="stat__n" data-target="96" data-suf="h">96h</div>
+          <div class="stat__l">First Delivery</div>
+        </div>
+        <div class="stat">
+          <div class="stat__n" data-prefix="$" data-target="1" data-suf="k avg">$1 avg</div>
+          <div class="stat__l">Average Order Value</div>
+        </div>
+        <div class="stat">
+          <div class="stat__n">∞</div>
+          <div class="stat__l">Revisions on Retainer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ PHILOSOPHY ══════════════════════════════════════════════ -->
+  <!-- Dark plum background. CSS spinning rings via ::before/::after -->
+  <section class="sec s-plum-dk phil" style="position:relative;overflow:hidden;">
+    <canvas id="phil-cv" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.7;z-index:0;"></canvas>
+    <div class="wrap">
+      <div class="phil__inner">
+        <div class="phil__tag reveal">Our Creed</div>
+        <h2 class="phil__h reveal">Precision.<br><em>By conviction.</em></h2>
+        <p class="phil__sub reveal d1">
+          Most agencies execute requests. We interrogate ambitions — and engineer
+          the infrastructure to realise them with uncompromising fidelity.
+        </p>
+        <div class="pills reveal d2">
+          <div class="pill"><span>Visual Sovereignty</span></div>
+          <div class="pill"><span>UI/UX Mastery</span></div>
+          <div class="pill"><span>Brand Positioning</span></div>
+          <div class="pill"><span>Engineering Excellence</span></div>
+          <div class="pill"><span>Unified Identity</span></div>
+          <div class="pill"><span>Conversion Architecture</span></div>
+          <div class="pill"><span>Funnel Intelligence</span></div>
+          <div class="pill"><span>AI Integration</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ CAPABILITIES ══════════════════════════════════════════════ -->
+  <!-- Bento grid: 13-column fibonacci layout (8+5, then 5+4+4) -->
+  <section id="cap" class="sec s-parch">
+    <div class="wrap">
+      <!-- Header: heading RIGHT side, note LEFT side (flex row-reverse) -->
+      <div class="cap-hd reveal">
+        <div>
+          <p class="lbl">Our Disciplines</p>
+          <h2 class="cap-h">What we<br><em>command.</em></h2>
+        </div>
+        <p class="cap-note">
+          Four sovereign disciplines. One integrated architecture.
+          Built to scale without compromise or compromise of craft.
+        </p>
+      </div>
+
+      <div class="bento">
+        <div class="bc reveal">
+          <div class="bc__n">01</div>
+          <h3 class="bc__t">Web Engineering</h3>
+          <p class="bc__p">Bespoke digital estates crafted for performance, conversion, and enduring aesthetic authority. Every line of code purposeful — no templates, no compromise.</p>
+          <div class="bc__tags">
+            <span class="bc__tag">Next.js</span>
+            <span class="bc__tag">React</span>
+            <span class="bc__tag">Webflow</span>
+          </div>
+        </div>
+        <div class="bc reveal d1">
+          <div class="bc__n">02</div>
+          <h3 class="bc__t">Brand Architecture</h3>
+          <p class="bc__p">Complete brand systems — identity, positioning, voice, and visual language — crafted to command recognition and loyalty at every scale.</p>
+          <div class="bc__tags">
+            <span class="bc__tag">Identity</span>
+            <span class="bc__tag">UI/UX</span>
+            <span class="bc__tag">Strategy</span>
+          </div>
+        </div>
+        <div class="bc reveal d2">
+          <div class="bc__n">03</div>
+          <h3 class="bc__t">AI Agents &amp; Apps</h3>
+          <p class="bc__p">Sovereign intelligence — custom AI agents, automation pipelines, and intelligent applications engineered to elevate operational precision.</p>
+          <div class="bc__tags">
+            <span class="bc__tag">Agents</span>
+            <span class="bc__tag">Automation</span>
+            <span class="bc__tag">LLM APIs</span>
+          </div>
+        </div>
+        <div class="bc reveal d3">
+          <div class="bc__n">04</div>
+          <h3 class="bc__t">Growth Infrastructure</h3>
+          <p class="bc__p">Analytics architecture, conversion strategy, funnel engineering, and social dominance systems designed for compounding returns.</p>
+          <div class="bc__tags">
+            <span class="bc__tag">Analytics</span>
+            <span class="bc__tag">Social</span>
+            <span class="bc__tag">Funnels</span>
+          </div>
+        </div>
+        <div class="bc reveal d4">
+          <div class="bc__n">05</div>
+          <h3 class="bc__t">Mobile Applications</h3>
+          <p class="bc__p">iOS and Android applications engineered in React Native — performant, beautifully crafted, tightly integrated with your brand system.</p>
+          <div class="bc__tags">
+            <span class="bc__tag">React Native</span>
+            <span class="bc__tag">iOS</span>
+            <span class="bc__tag">Android</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ TRUST ══════════════════════════════════════════════════ -->
+  <section class="sec s-blush">
+    <div class="wrap">
+      <div class="trust reveal">
+        <div class="tc reveal">
+          <div class="tc__icon">◈</div>
+          <div class="tc__t">Zero Cookie-Cutter Work</div>
+          <p class="tc__p">Every engagement is an original commission. No recycled templates, no borrowed frameworks, no diluted vision.</p>
+        </div>
+        <div class="tc reveal">
+          <div class="tc__icon">◈</div>
+          <div class="tc__t">Dedicated Architecture Team</div>
+          <p class="tc__p">A senior team assigned exclusively to your project — not a rotating roster of junior contractors.</p>
+        </div>
+        <div class="tc reveal">
+          <div class="tc__icon">◈</div>
+          <div class="tc__t">Strategic Depth</div>
+          <p class="tc__p">Every build begins with rigorous discovery — because executing a flawed strategy with precision only accelerates failure.</p>
+        </div>
+        <div class="tc reveal">
+          <div class="tc__icon">◈</div>
+          <div class="tc__t">Enduring Partnership</div>
+          <p class="tc__p">We do not vanish at handover. Our retainer model ensures your system evolves as your ambitions compound.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ══ SERVICES ══════════════════════════════════════════════ -->
+  <section id="services" class="sec s-sage">
+    <div class="wrap">
+      <div class="svc-intro reveal">
+        <p class="lbl svc-lbl">Our Expertise</p>
+        <h2 class="svc-h">Bespoke solutions<br><em>for ambitious brands.</em></h2>
+        <p class="svc-note">
+          We architect integrated digital systems across five core disciplines.
+        </p>
+      </div>
+
+      <div class="svc-grid reveal">
+        <div class="svc-card" data-service="web-development">
+          <div class="svc-card__num">01</div>
+          <h3 class="svc-card__title">Web Development</h3>
+          <p class="svc-card__desc">
+            Bespoke digital architectures engineered for performance, conversion, and enduring aesthetic authority. Built with Next.js, React, and custom frameworks.
+          </p>
+          <a href="#" class="svc-card__link email-trigger">Inquire <span>→</span></a>
+        </div>
+
+        <div class="svc-card" data-service="mobile-app">
+          <div class="svc-card__num">02</div>
+          <h3 class="svc-card__title">Mobile App Development</h3>
+          <p class="svc-card__desc">
+            iOS and Android applications engineered in React Native. Performant, beautifully crafted, and tightly integrated with your brand ecosystem.
+          </p>
+          <a href="#" class="svc-card__link email-trigger">Inquire <span>→</span></a>
+        </div>
+
+        <div class="svc-card" data-service="web-design">
+          <div class="svc-card__num">03</div>
+          <h3 class="svc-card__title">Web Design</h3>
+          <p class="svc-card__desc">
+            Complete brand systems — identity, positioning, visual language, and interface architecture — crafted to command recognition and loyalty.
+          </p>
+          <a href="#" class="svc-card__link email-trigger">Inquire <span>→</span></a>
+        </div>
+
+        <div class="svc-card" data-service="social-media">
+          <div class="svc-card__num">04</div>
+          <h3 class="svc-card__title">Social Media Management</h3>
+          <p class="svc-card__desc">
+            Editorial content strategy, community cultivation, and strategic scheduling across platforms — engineered to amplify your brand voice.
+          </p>
+          <a href="#" class="svc-card__link email-trigger">Inquire <span>→</span></a>
+        </div>
+
+        <div class="svc-card" data-service="ai-automation">
+          <div class="svc-card__num">05</div>
+          <h3 class="svc-card__title">AI Automation</h3>
+          <p class="svc-card__desc">
+            Sovereign AI agents and automation pipelines engineered to elevate operational precision, eliminate friction, and architect intelligent systems.
+          </p>
+          <a href="#" class="svc-card__link email-trigger">Inquire <span>→</span></a>
+        </div>
+      </div>
+
+      <div class="svc-cta reveal">
+        <p class="svc-cta__text">Each engagement is custom-scoped to your vision and ambitions.</p>
+        <a href="#contact-us" class="btn btn--warm"><span>Start a Conversation</span></a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ FAQ ═════════════════════════════════════════════════════ -->
+  <section class="sec s-parch" id="faq">
+    <div class="wrap">
+      <div class="faq-intro reveal">
+        <p class="lbl">Common Questions</p>
+        <h2 class="faq-h">Clarity on<br><em>engagement.</em></h2>
+      </div>
+
+      <div class="faq-grid reveal">
+        <div class="faq-item" data-faq="1">
+          <div class="faq-q">What's your typical engagement structure?</div>
+          <div class="faq-a">
+            <p>We work both project-based and via monthly retainers. Project engagements are ideal for singular deliverables. Retainers suit ongoing growth — when you need continuous optimization and a dedicated team.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="2">
+          <div class="faq-q">How long does a typical project take?</div>
+          <div class="faq-a">
+            <p>Scope determines timeline. Landing page: 4–6 weeks. Brand + website: 8–12 weeks. Complex applications: 12–16+ weeks. We prioritize quality over speed.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="3">
+          <div class="faq-q">Do you offer revisions and iteration?</div>
+          <div class="faq-a">
+            <p>Absolutely. Project engagements include structured revision rounds. Retainer clients enjoy unlimited refinements — your system evolves continuously.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="4">
+          <div class="faq-q">What industries do you specialize in?</div>
+          <div class="faq-a">
+            <p>We work across luxury brands, SaaS, fintech, real estate, e-commerce, and B2B institutions. What matters is your commitment to excellence.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="5">
+          <div class="faq-q">Can you work with our existing team?</div>
+          <div class="faq-a">
+            <p>Yes. We integrate seamlessly with your existing systems, developers, and stakeholders. Our work is maintainable and transferable.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="6">
+          <div class="faq-q">How do you approach discovery and strategy?</div>
+          <div class="faq-a">
+            <p>Every engagement begins with rigorous discovery. We interrogate your business model, competitive landscape, and growth ambitions before any execution.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="7">
+          <div class="faq-q">What's your development process?</div>
+          <div class="faq-a">
+            <p>Discovery → Architecture → Design → Engineering → Stewardship. We move through each phase deliberately, maintaining creative control for uncompromising quality.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="8">
+          <div class="faq-q">What technology do you use?</div>
+          <div class="faq-a">
+            <p>Next.js, React, React Native, Node.js, and modern AI frameworks. Technology is subservient to your strategy — we choose tools that serve your goals.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="9">
+          <div class="faq-q">What about post-launch support?</div>
+          <div class="faq-a">
+            <p>Project clients receive 30 days of post-launch stewardship. Retainer clients have ongoing support, optimization, and strategic partnership embedded in their engagement.</p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-faq="10">
+          <div class="faq-q">How do we get started?</div>
+          <div class="faq-a">
+            <p>Reach out via email. We'll schedule a conversation to understand your vision, challenges, and ambitions. If there's mutual alignment, we move into discovery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ══ WHY ════════════════════════════════════════════════════ -->
+  <!-- Sticky heading: .why-h has position:sticky so it stays visible
+       while the items scroll past it on the right -->
+  <section id="why" class="sec s-warm" style="position:relative;overflow:hidden;">
+    <canvas id="why-cv" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.6;z-index:0;"></canvas>
+    <div class="wrap">
+      <p class="lbl reveal">Our Distinction</p>
+      <div class="why-g">
+        <div class="reveal">
+          <h2 class="why-h">Uncommon.<br><em>By design.</em></h2>
+        </div>
+        <div class="reveal d1">
+          <div class="wi">
+            <div class="wi__n">01</div>
+            <div>
+              <div class="wi__t">Strategy Precedes Execution</div>
+              <p class="wi__p">Every commission begins with a rigorous interrogation of your business model and growth ambitions — because beautiful work built on shallow strategy produces nothing of consequence.</p>
+            </div>
+          </div>
+          <div class="wi">
+            <div class="wi__n">02</div>
+            <div>
+              <div class="wi__t">One Vision. Absolute Fidelity.</div>
+              <p class="wi__p">Across every platform, every touchpoint, every asset — your brand speaks with one sovereign voice. Fragmentation is the hallmark of mediocrity. We do not permit it.</p>
+            </div>
+          </div>
+          <div class="wi">
+            <div class="wi__n">03</div>
+            <div>
+              <div class="wi__t">Intelligence Architected In</div>
+              <p class="wi__p">AI is not a feature we bolt on as an afterthought. It is woven into the very architecture of your digital infrastructure — agents, automation, and intelligence operating in concert.</p>
+            </div>
+          </div>
+          <div class="wi">
+            <div class="wi__n">04</div>
+            <div>
+              <div class="wi__t">The Same Standard at Every Scale</div>
+              <p class="wi__p">From a single landing page to a full enterprise infrastructure — we exercise the same exacting standards and meticulous attention regardless of scope.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ PROCESS ══════════════════════════════════════════════ -->
+  <section id="process" class="sec s-sage-dk" style="position:relative;overflow:hidden;">
+    <canvas id="proc-cv" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0.65;z-index:0;"></canvas>
+    <div class="wrap">
+      <div class="proc-hd reveal">
+        <h2 class="proc-h">The art of<br><em>how we work.</em></h2>
+        <p class="proc-sub">A refined methodology that delivers extraordinary outcomes with surgical precision.</p>
+      </div>
+      <div class="proc-steps reveal" id="proc-steps">
+        <div class="ps reveal">
+          <div class="ps__n">01</div>
+          <div class="ps__t">Discovery</div>
+          <p class="ps__p">We map your ambitions, audience psychology, and competitive terrain before a single pixel is considered.</p>
+        </div>
+        <div class="ps reveal d1">
+          <div class="ps__n">02</div>
+          <div class="ps__t">Architecture</div>
+          <p class="ps__p">We compose the structural blueprint — information hierarchy, brand philosophy, and technical foundation built to endure.</p>
+        </div>
+        <div class="ps reveal d2">
+          <div class="ps__n">03</div>
+          <div class="ps__t">Design</div>
+          <p class="ps__p">Every component, every state, every transition — crafted to an exacting standard that renders imitation impossible.</p>
+        </div>
+        <div class="ps reveal d3">
+          <div class="ps__n">04</div>
+          <div class="ps__t">Engineering</div>
+          <p class="ps__p">Production-grade code of uncommon precision — performant, scalable, built to evolve with your ambitions.</p>
+        </div>
+        <div class="ps reveal d4">
+          <div class="ps__n">05</div>
+          <div class="ps__t">Stewardship</div>
+          <p class="ps__p">We remain embedded as your strategic partner — refining, evolving, and advancing beyond the launch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══ CONTACT US ═══════════════════════════════════════════ -->
+  <section class="sec s-white contact-section" id="contact-us">
+    <div class="wrap">
+      <div class="contact-inner reveal">
+        <div class="lbl">Contact Us</div>
+        <h2 class="contact-heading">
+          Let's build something<br><em>extraordinary.</em>
+        </h2>
+        <p class="contact-sub">
+          We respond to every inquiry with the attention it commands.<br>
+          Reach us directly — no forms, no friction.
+        </p>
+        <a href="mailto:hello@armonthe.com" class="contact-email-cta">
+          <span class="contact-email-icon">✉</span>
+          <span class="contact-email-text">hello@armonthe.com</span>
+          <span class="contact-email-arrow">→</span>
+        </a>
+        <p class="contact-hint">Click to open your email app</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ FOOTER ══════════════════════════════════════════════ -->
+  <footer id="contact" class="footer">
+    <div class="wrap">
+      <div class="ft reveal">
+        <div>
+          <div class="fb">ARMONTHE</div>
+          <p class="ftag">Architects of Digital Excellence. Bespoke systems for brands that refuse to be ordinary.</p>
+        </div>
+        <div>
+          <div class="fct">Disciplines</div>
+          <ul class="flinks">
+            <li><a href="#cap">Web Engineering</a></li>
+            <li><a href="#cap">Brand Architecture</a></li>
+            <li><a href="#cap">AI Agents</a></li>
+            <li><a href="#cap">Social Dominance</a></li>
+            <li><a href="#cap">Mobile Applications</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="fct">Atelier</div>
+          <ul class="flinks">
+            <li><a href="#about">About</a></li>
+            <li><a href="#cap">Disciplines</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#why">Distinction</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="fct">Engage</div>
+          <ul class="flinks">
+            <li><a href="mailto:hello@armonthe.com">hello@armonthe.com</a></li>
+            <li><a href="mailto:hello@armonthe.com">Commission a Project</a></li>
+            <!-- <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li> -->
+          </ul>
+        </div>
+      </div>
+
+      <div class="fbot">
+        <span class="fcopy">© 2024 Armonthe. All rights reserved.</span>
+        <a href="mailto:hello@armonthe.com" class="femail">hello@armonthe.com</a>
+        <span class="fcopy">Privacy · Terms</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!--
+    ══ JAVASCRIPT ═════════════════════════════════════════════
+    type="module" does two things:
+    1. Defers execution until DOM is ready (no need for DOMContentLoaded)
+    2. Enables ES module imports (import/export syntax in main.js)
+    ═══════════════════════════════════════════════════════════
+  -->
+
+  <!-- Premium micro-interactions -->
+  <script>
+    // Email inquiry template
+    const inquiryTemplate = "Hello Armonthe,%0D%0A%0D%0AI am reaching out to explore the possibility of engaging your atelier for a strategic digital initiative. I am impressed by your approach to architectural excellence and integration, and I believe our vision for transformation aligns with your methodology.%0D%0A%0D%0AI would welcome the opportunity to discuss our specific requirements and how Armonthe might architect a bespoke solution for our brand.%0D%0A%0D%0AI look forward to a substantive conversation.%0D%0A%0D%0ABest regards";
+
+    // Update email links with pre-written message
+    document.addEventListener('DOMContentLoaded', function() {
+      const mailtoLink = `mailto:hello@armonthe.com?subject=${encodeURIComponent('Inquiry — Strategic Digital Initiative')}&body=${inquiryTemplate}`;
+      
+      // Update all email trigger buttons
+      document.querySelectorAll('.email-trigger').forEach(link => {
+        link.href = mailtoLink;
+        link.addEventListener('click', (e) => {
+          // For email links, let the default action proceed
+        });
+      });
+
+      // Update Commission/Engage buttons
+      document.querySelectorAll('a[href*="mailto:hello@armonthe.com"]').forEach(link => {
+        if (link.href.indexOf('?') === -1) {
+          link.href = mailtoLink;
+        }
+      });
+
+      // Create and show email prompt notification
+      setTimeout(() => {
+        const notice = document.createElement('div');
+        notice.id = 'email-prompt';
+        notice.style.cssText = `
+          position: fixed;
+          bottom: 24px;
+          right: 24px;
+          background: var(--dark-espresso, #1a1a1a);
+          border: 1px solid var(--sage-teal, #2d5d52);
+          color: var(--pure-white, #fff);
+          padding: 16px 24px;
+          border-radius: 4px;
+          font-family: 'Outfit', sans-serif;
+          font-size: 14px;
+          z-index: 9999;
+          opacity: 0;
+          transition: opacity 0.4s ease, transform 0.4s ease;
+          max-width: 280px;
+          line-height: 1.5;
+          box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+          transform: translateY(20px);
+          will-change: opacity, transform;
+        `;
+        
+        notice.innerHTML = `
+          <div style="display: flex; gap: 12px; align-items: flex-start;">
+            <div style="flex: 1;">
+              <p style="margin: 0 0 8px 0; font-weight: 500; font-size: 14px;">Ready to engage?</p>
+              <p style="margin: 0 0 12px 0; opacity: 0.8; font-size: 12px; line-height: 1.4;">Pre-written inquiry template ready.</p>
+              <a href="${mailtoLink}" style="
+                display: inline-block;
+                background: var(--sage-teal, #2d5d52);
+                color: var(--pure-white, #fff);
+                padding: 6px 12px;
+                text-decoration: none;
+                border-radius: 2px;
+                font-size: 11px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
+                transition: all 0.2s ease;
+              " onmouseover="this.style.background='var(--sage-teal-dark, #1f4338); this.style.transform='scale(1.05)'" onmouseout="this.style.background='var(--sage-teal, #2d5d52); this.style.transform='scale(1)'" ontouchstart="this.style.opacity='0.8'">
+                OPEN EMAIL
+              </a>
+            </div>
+            <button id="close-email-prompt" style="
+              background: none;
+              border: none;
+              color: rgba(255,255,255,0.4);
+              font-size: 18px;
+              cursor: pointer;
+              padding: 0;
+              width: 20px;
+              height: 20px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              flex-shrink: 0;
+              transition: color 0.2s ease;
+              font-weight: 300;
+            " onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'" onmousedown="this.style.transform='scale(0.9)'" onmouseup="this.style.transform='scale(1)'">
+              ✕
+            </button>
+          </div>
+        `;
+        
+        document.body.appendChild(notice);
+        
+        // Close button handler
+        const closeBtn = notice.querySelector('#close-email-prompt');
+        const closeNotice = () => {
+          notice.style.opacity = '0';
+          notice.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            if (notice.parentElement) notice.remove();
+          }, 400);
+        };
+        
+        closeBtn.addEventListener('click', closeNotice);
+        
+        // Fade in
+        requestAnimationFrame(() => {
+          notice.style.opacity = '1';
+          notice.style.transform = 'translateY(0)';
+        });
+        
+        // Auto-close after 9 seconds
+        setTimeout(closeNotice, 9000);
+      }, 800);
+    });
+
+    // Ripple on contact CTA click
+    document.addEventListener('click', function(e) {
+      const cta = e.target.closest('.contact-email-cta');
+      if (!cta) return;
+      const r = document.createElement('span');
+      r.className = 'ripple';
+      const rect = cta.getBoundingClientRect();
+      r.style.left = (e.clientX - rect.left - 4) + 'px';
+      r.style.top  = (e.clientY - rect.top - 4) + 'px';
+      cta.appendChild(r);
+      setTimeout(() => r.remove(), 700);
+    });
+
+    // Proc-steps connector line on scroll
+    const ps = document.getElementById('proc-steps');
+    if (ps) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { ps.classList.add('line-visible'); obs.unobserve(ps); }
+        });
+      }, { threshold: 0.2 });
+      obs.observe(ps);
+    }
+  </script>
+
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

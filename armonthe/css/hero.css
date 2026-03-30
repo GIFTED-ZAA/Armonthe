@@ -1,0 +1,238 @@
+/* ============================================================
+   HERO SECTION
+   Full-viewport landing area with:
+   - Canvas rings animation (background)
+   - Orbiting emoji icons (right side)
+   - Geometric corner marks
+   - Floating color dots
+   - Animated heading with underline
+   - Rotating text ("One Vision / One Standard")
+   ============================================================ */
+
+.hero {
+  min-height: 100vh;
+  padding-top: 76px;               /* Clear the fixed nav */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;       /* Content sits at the bottom */
+  padding-bottom: clamp(60px, 8vw, 110px);
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+/* ── CANVAS — magic rings live here ─────────────────────── */
+#rings-cv {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── ORBIT WRAP — container for emoji icons ─────────────── */
+/* Centered in upper-right quadrant of the hero */
+.orbit-wrap {
+  position: absolute;
+  top: 44%;
+  right: 9%;
+  transform: translateY(-50%);
+  width: 400px;
+  height: 400px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Individual orbiting icons */
+.orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 62px;
+  height: 62px;
+  margin: -31px 0 0 -31px;        /* Center the orb on the orbit origin */
+  border-radius: 50%;
+  border: 1px solid var(--border2);
+  background: var(--white);
+  box-shadow: 0 4px 18px rgba(26, 20, 16, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  will-change: transform;          /* JS updates transform every frame */
+}
+
+/* ── GEO MARKS — decorative corner brackets ─────────────── */
+.g-tl {
+  position: absolute;
+  top: 108px;
+  left: clamp(24px, 6vw, 100px);
+  width: 70px;
+  height: 70px;
+  border-top:  1px solid rgba(26, 20, 16, 0.10);
+  border-left: 1px solid rgba(26, 20, 16, 0.10);
+  opacity: 0;
+  animation: fadeIn 1.4s ease 0.9s forwards;
+  z-index: 1;
+}
+
+.g-br {
+  position: absolute;
+  bottom: 120px;
+  right: 40%;
+  width: 55px;
+  height: 55px;
+  border-bottom: 1px solid rgba(142, 206, 197, 0.4);
+  border-right:  1px solid rgba(142, 206, 197, 0.4);
+  opacity: 0;
+  animation: fadeIn 1.4s ease 1.2s forwards;
+  z-index: 1;
+}
+
+/* ── FLOATING DOTS ───────────────────────────────────────── */
+/* Six colored dots that bob up and down at different speeds */
+.g-dot {
+  position: absolute;
+  border-radius: 50%;
+  animation: fdot 8s ease-in-out infinite;
+}
+
+.gd1 { width: 6px; height: 6px; right: 19%; top: 28%; background: var(--a); opacity: 0.18; animation-delay:    0s; }
+.gd2 { width: 4px; height: 4px; right: 36%; top: 46%; background: var(--a); opacity: 0.28; animation-delay:   -2s; }
+.gd3 { width: 7px; height: 7px; right: 26%; top: 67%; background: var(--a); opacity: 0.14; animation-delay: -4.5s; }
+.gd4 { width: 3px; height: 3px; right: 50%; top: 20%; background: var(--a); opacity: 0.12; animation-delay: -1.5s; }
+.gd5 { width: 5px; height: 5px; right: 13%; top: 55%; background: var(--a); opacity: 0.26; animation-delay:   -3s; }
+.gd6 { width: 5px; height: 5px; right: 32%; top: 38%; background: var(--a); opacity: 0.10; animation-delay: -2.8s; }
+
+/* ── HERO CONTENT ────────────────────────────────────────── */
+.hero__content {
+  position: relative;
+  z-index: 2;  /* Sits above canvas and orbit */
+}
+
+/* Small label above the swap row */
+.hero__pre {
+  font-size: 9.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--soft);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: var(--f5);    /* 55px (fibonacci) */
+  opacity: 0;
+  animation: up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+}
+
+/* Short horizontal line before the label text */
+.hero__pre::before {
+  content: '';
+  width: 34px;
+  height: 1px;
+  background: var(--soft);
+  flex-shrink: 0;
+}
+
+/* ── SWAP ROW — rotating "One Vision / One Standard" ────── */
+.swap-row {
+  display: flex;
+  align-items: center;
+  gap: var(--f3);              /* 21px gap */
+  margin-bottom: var(--f4);   /* 34px below */
+  opacity: 0;
+  animation: up 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.38s forwards;
+}
+
+/* Clipping container — hides words sliding in/out */
+.swap-box {
+  position: relative;
+  height: 26px;
+  min-width: 110px;
+  overflow: hidden;
+}
+
+/* Each swappable word */
+.sw {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--a);
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  white-space: nowrap;
+  transition: opacity 0.42s, transform 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sw.on  { opacity: 1; transform: translateY(-50%); }    /* Currently visible */
+.sw.out { opacity: 0; transform: translateY(-130%); }   /* Exiting upward */
+.sw.in  { opacity: 0; transform: translateY(70%); }     /* Waiting below */
+
+.swap-sep   { font-size: 11px; color: var(--mute); letter-spacing: 0.1em; }
+.swap-fixed { font-size: 9.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); }
+
+/* ── MAIN HEADING ────────────────────────────────────────── */
+.hero__heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(58px, 7.8vw, 124px);  /* Fluid: 58px → 124px */
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  max-width: 760px;
+  padding-left: clamp(0px, 8vw, 130px);  /* Fibonacci indent */
+  opacity: 0;
+  animation: up 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+  display: inline-block;
+  transform-origin: left center;
+  will-change: transform;               /* JS skews this on mousemove */
+}
+
+.hero__heading em { font-style: italic; }
+
+/* "digital" gets a growing underline animation */
+.hero__heading .ul {
+  position: relative;
+  display: inline-block;
+}
+
+.hero__heading .ul::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--a), rgba(142, 206, 197, 0.5));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: lReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 1.6s forwards;
+}
+
+/* ── HERO FOOTER ROW — description + CTA buttons ────────── */
+.hero__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-top: var(--f5);
+  padding-left: clamp(0px, 8vw, 130px); /* Matches heading indent */
+  opacity: 0;
+  animation: up 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards;
+}
+
+.hero__desc {
+  max-width: 380px;
+  font-size: 14.5px;
+  line-height: 1.9;
+  color: var(--soft);
+}
+
+.hero__actions {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  flex-shrink: 0;
+}

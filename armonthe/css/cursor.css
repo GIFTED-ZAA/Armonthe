@@ -1,0 +1,54 @@
+/* ============================================================
+   CUSTOM CURSOR
+   A minimal crosshair that replaces the browser cursor.
+   Uses mix-blend-mode: difference so it's always visible
+   on both light and dark backgrounds.
+   ============================================================ */
+
+/* The cursor element is a 22×22px invisible box */
+#cur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;       /* Never intercepts clicks */
+  will-change: transform;     /* Hint browser to use GPU */
+  transform: translate(-50%, -50%);
+  width: 22px;
+  height: 22px;
+  mix-blend-mode: difference; /* White lines appear on dark bg, dark on light */
+}
+
+/* The two lines of the crosshair are pseudo-elements */
+#cur::before,
+#cur::after {
+  content: '';
+  position: absolute;
+  background: #fff;
+  transition:
+    width  0.42s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.42s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Horizontal bar */
+#cur::before {
+  width: 22px;
+  height: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Vertical bar */
+#cur::after {
+  width: 1px;
+  height: 22px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Crosshair grows when hovering interactive elements */
+/* JS adds .cur-hover to <body> on mouseenter of links/buttons */
+body.cur-hover #cur::before { width: 32px; }
+body.cur-hover #cur::after  { height: 32px; }
